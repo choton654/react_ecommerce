@@ -1,8 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import CustomeButton from '../../components/customeButton/CustomeButton';
+import { addItems } from '../../redux/cart/cartActions';
 import './previewItems.scss';
 
-function PreviewItems({ id, name, imageUrl, price }) {
+function PreviewItems({ item, addItems }) {
+  const { name, imageUrl, price } = item;
   return (
     <div className='collection-item'>
       <div
@@ -15,9 +18,15 @@ function PreviewItems({ id, name, imageUrl, price }) {
         <div className='name'>{name}</div>
         <div className='price'>${price}</div>
       </div>
-      <CustomeButton inverted>ADD TO CART</CustomeButton>
+      <CustomeButton inverted onClick={() => addItems(item)}>
+        ADD TO CART
+      </CustomeButton>
     </div>
   );
 }
 
-export default PreviewItems;
+const mapDispatchtoProps = (dispatch) => ({
+  addItems: (item) => dispatch(addItems(item)),
+});
+
+export default connect(null, mapDispatchtoProps)(PreviewItems);

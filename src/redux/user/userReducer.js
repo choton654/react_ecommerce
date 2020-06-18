@@ -4,7 +4,7 @@ const initialState = {
   currentUser: null,
 };
 
-const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case userTypes.SET_CURRENT_USER:
       return {
@@ -16,5 +16,3 @@ const userReducer = (state = initialState, action) => {
       return state;
   }
 };
-
-export { userReducer };
