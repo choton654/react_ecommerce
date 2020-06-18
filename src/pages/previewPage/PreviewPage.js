@@ -1,5 +1,5 @@
 import React from 'react';
-import PreviewItems from './PreviewItems';
+import PreviewItems from '../previewItems/PreviewItems';
 import './previewPage.scss';
 
 const PreviewPage = ({ title, items }) => {

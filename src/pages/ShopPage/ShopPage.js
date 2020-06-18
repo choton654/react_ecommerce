@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import SHOP_DATA from './shopData';
-import PreviewPage from './PreviewPage';
+import PreviewPage from '../previewPage/PreviewPage';
+import SHOP_DATA from '../shopData';
 
 export class ShopPage extends Component {
   state = {

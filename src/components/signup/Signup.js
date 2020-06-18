@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { auth, createUserProfileDocument } from '../firebase/firebase';
-import CustomeButton from './CustomeButton';
-import FormInput from './FormInput';
-import './signin.scss';
+import { auth, createUserProfileDocument } from '../../firebase/firebase';
+import CustomeButton from '../customeButton/CustomeButton';
+import FormInput from '../formInput/FormInput';
+import './signup.scss';
 
 export class Signup extends Component {
   state = {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { manualSignin } from '../firebase/firebase';
-import CustomeButton from './CustomeButton';
-import FormInput from './FormInput';
+import { manualSignin } from '../../firebase/firebase';
+import CustomeButton from '../customeButton/CustomeButton';
+import FormInput from '../formInput/FormInput';
 import './signin.scss';
 
 export class Signin extends Component {

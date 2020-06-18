@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
-import Header from './components/Header';
+import Header from './components/header/Header';
 import { auth, createUserProfileDocument } from './firebase/firebase';
-import Homepage from './pages/Homepage';
-import ShopPage from './pages/ShopPage';
-import SigninSignup from './pages/SigninSignup';
+import Homepage from './pages/homepage/Homepage';
+import ShopPage from './pages/ShopPage/ShopPage';
+import SigninSignup from './pages/signinsignup/SigninSignup';
 import { userAction } from './redux/user/userAction';
 
 class App extends React.Component {
