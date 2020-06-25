@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import CustomeButton from '../../components/customeButton/CustomeButton';
 import { addItems } from '../../redux/cart/cartActions';
+import CustomeButton from '../customeButton/CustomeButton';
 import './previewItems.scss';
 
 function PreviewItems({ item, addItems }) {

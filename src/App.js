@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
+import { selectCollectionOverview } from '../src/redux/shop/shopSelector.js';
 import './App.css';
 import Header from './components/header/Header';
 import { auth, createUserProfileDocument } from './firebase/firebase';
@@ -19,10 +20,7 @@ class App extends React.Component {
   componentDidMount() {
     this.unSuscribefromAuth = auth.onAuthStateChanged(async (user) => {
       if (user) {
-        // console.log('user Auth', user);
-
         const userRef = await createUserProfileDocument(user);
-        // console.log('user ref', userRef);
 
         userRef.onSnapshot((snapshot) => {
           this.props.setCurrentUser(
@@ -44,12 +42,12 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className='App'>
+      <div>
         <Header />
         <Switch>
           <Route exact path='/' component={Homepage} />
           <Route exact path='/shop' component={ShopPage} />
-          <Route exact path='/shop/:collectionId' component={CollectionPage} />
+          <Route exact path='/shop/:id' component={CollectionPage} />
           <Route exact path='/checkout' component={CheckoutPage} />
           <Route
             exact
@@ -66,6 +64,7 @@ class App extends React.Component {
 
 const mapStatetoProps = createStructuredSelector({
   currentUser: currentUserSelector,
+  collectionsArray: selectCollectionOverview,
 });
 
 const mapDispatchtoProps = (dispatch) => ({

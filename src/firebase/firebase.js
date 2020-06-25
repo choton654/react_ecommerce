@@ -28,7 +28,6 @@ export const createUserProfileDocument = async (user, additionalData) => {
   const userRef = db.collection('users').doc(`${user.uid}`);
 
   const snapShot = await userRef.get();
-  // console.log('snapshot ', snapShot);
 
   if (!snapShot.exists) {
     try {
@@ -40,12 +39,39 @@ export const createUserProfileDocument = async (user, additionalData) => {
         createdAt,
         ...additionalData,
       });
-      // console.log('user ref', userRef);
     } catch (error) {
       console.log('error created user', error.message);
     }
   }
   return userRef;
+};
+
+export const addCollectionandDoc = async (collectionKey, objectsToAdd) => {
+  const collectionRef = db.collection(collectionKey);
+  console.log(collectionRef);
+
+  const batch = db.batch();
+  objectsToAdd.forEach((obj) => {
+    const newDocRef = collectionRef.doc(obj.title);
+    batch.set(newDocRef, obj);
+  });
+  return await batch.commit();
+};
+
+export const convertCollectionSnapshotToMap = (collections) => {
+  const transformedCollection = collections.docs.map((doc) => {
+    const { title, items } = doc.data();
+    return {
+      routename: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items,
+    };
+  });
+  return transformedCollection.reduce((acc, collection) => {
+    acc[collection.title.toLowerCase()] = collection;
+    return acc;
+  }, {});
 };
 
 var provider = new firebase.auth.GoogleAuthProvider();

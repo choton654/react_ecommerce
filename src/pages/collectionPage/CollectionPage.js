@@ -1,18 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PreviewItems from '../../components/previewItems/PreviewItems';
 import { selectCollection } from '../../redux/shop/shopSelector';
-import PreviewItems from '../previewItems/PreviewItems';
 import './collectionPage.scss';
 
 const CollectionPage = ({ collection }) => {
-  console.log(collection);
-  const { title, items, id } = collection;
+  console.log('collection', collection);
+  const { title, items } = collection;
   return (
     <div className='collection-page'>
       <h2 className='title'>{title}</h2>
       <div className='items'>
         {items.map((item) => (
-          <PreviewItems className='collection-item' key={id} item={item} />
+          <PreviewItems className='collection-item' key={item.id} item={item} />
         ))}
       </div>
     </div>

@@ -1,11 +1,17 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import PreviewItems from '../previewItems/PreviewItems';
-import './previewPage.scss';
+import './preview.scss';
 
-const PreviewPage = ({ title, items }) => {
+const Preview = ({ title, items, history, match, routename }) => {
   return (
     <div className='collection-preview'>
-      <h1 className='title'>{title}</h1>
+      <h1
+        style={{ cursor: 'pointer' }}
+        onClick={() => history.push(`shop/${routename}`)}
+        className='title'>
+        {title.toUpperCase()}
+      </h1>
       <div className='preview'>
         {items
           .filter((item, idx) => idx < 4)
@@ -17,4 +23,4 @@ const PreviewPage = ({ title, items }) => {
   );
 };
 
-export default PreviewPage;
+export default withRouter(Preview);
