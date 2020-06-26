@@ -20,7 +20,7 @@ const CollectionPage = ({ collection }) => {
 };
 
 const mapStatetoProps = (state, ownProps) => ({
-  collection: selectCollection(ownProps.match.params.collectionId)(state),
+  collection: selectCollection(ownProps.match.params.id)(state),
 });
 
 export default connect(mapStatetoProps)(CollectionPage);
