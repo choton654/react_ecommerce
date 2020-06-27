@@ -17,11 +17,6 @@ firebase.initializeApp(config);
 export const auth = firebase.auth();
 export const db = firebase.firestore();
 
-export const manualSignin = async (email, password) => {
-  await auth.signInWithEmailAndPassword(email, password);
-  // console.log(userCred);
-};
-
 export const createUserProfileDocument = async (user, additionalData) => {
   if (!user) return;
 

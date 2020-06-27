@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { manualSignin } from '../../firebase/firebase';
+import { connect } from 'react-redux';
+import { signInWithEmail } from '../../redux/user/userAction';
 import CustomeButton from '../customeButton/CustomeButton';
 import FormInput from '../formInput/FormInput';
 import './signin.scss';
@@ -13,12 +14,7 @@ export class Signin extends Component {
   handelSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = this.state;
-    try {
-      await manualSignin(email, password);
-      this.setState({ email: '', password: '' });
-    } catch (error) {
-      console.log('error in signin', error.message);
-    }
+    this.props.signInWithEmail(email, password);
   };
 
   handelChange = (e) => {
@@ -55,4 +51,9 @@ export class Signin extends Component {
   }
 }
 
-export default Signin;
+const mapDispatchToProps = (dispatch) => ({
+  signInWithEmail: (email, password) =>
+    dispatch(signInWithEmail({ email, password })),
+});
+
+export default connect(null, mapDispatchToProps)(Signin);

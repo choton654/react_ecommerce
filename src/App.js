@@ -4,7 +4,6 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import './App.css';
 import Header from './components/header/Header';
-import { auth, createUserProfileDocument } from './firebase/firebase';
 import CheckoutPage from './pages/checkoutPage/CheckoutPage';
 import Homepage from './pages/homepage/Homepage';
 import { CollectionOverviewPageContainer } from './pages/ShopPage/CollectionOverviewPageContainer';
@@ -13,34 +12,10 @@ import SigninSignup from './pages/signinsignup/SigninSignup';
 import { fetchCollections } from './redux/shop/shopAction';
 import { selectCollectionOverview } from './redux/shop/shopSelector';
 import { currentUserSelector } from './redux/user/selector';
-import { userAction } from './redux/user/userAction';
 
 class App extends React.Component {
-  unSuscribefromAuth = null;
-
   componentDidMount() {
-    this.unSuscribefromAuth = auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        const userRef = await createUserProfileDocument(user);
-
-        userRef.onSnapshot((snapshot) => {
-          this.props.setCurrentUser(
-            {
-              id: snapshot.id,
-              ...snapshot.data(),
-            },
-            () => console.log(this.state.currentUser),
-          );
-        });
-      }
-      this.props.setCurrentUser(user);
-      this.props.fetchCollections();
-      console.log('componentDidmount run');
-    });
-  }
-
-  componentWillUnmount() {
-    this.unSuscribefromAuth();
+    this.props.fetchCollections();
   }
 
   render() {
@@ -75,7 +50,6 @@ const mapStatetoProps = createStructuredSelector({
 });
 
 const mapDispatchtoProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(userAction(user)),
   fetchCollections: () => dispatch(fetchCollections()),
 });
 
