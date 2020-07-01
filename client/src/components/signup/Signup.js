@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { auth, createUserProfileDocument } from '../../firebase/firebase';
+import { connect } from 'react-redux';
+import { signUpUser } from '../../redux/user/userAction';
 import CustomeButton from '../customeButton/CustomeButton';
 import FormInput from '../formInput/FormInput';
 import './signup.scss';
@@ -21,22 +22,7 @@ export class Signup extends Component {
       alert('password does not match!');
       return;
     }
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password,
-      );
-
-      await createUserProfileDocument(user, { displayName });
-      this.setState({
-        displayName: '',
-        email: '',
-        password: '',
-        rePassword: '',
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    this.props.signUpUser(email, password, displayName);
   };
 
   handelChange = (e) => {
@@ -84,4 +70,9 @@ export class Signup extends Component {
   }
 }
 
-export default Signup;
+const mapDispatchToProps = (dispatch) => ({
+  signUpUser: (email, password, displayName) =>
+    dispatch(signUpUser({ email, password, displayName })),
+});
+
+export default connect(null, mapDispatchToProps)(Signup);

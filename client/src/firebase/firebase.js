@@ -69,6 +69,24 @@ export const convertCollectionSnapshotToMap = (collections) => {
   }, {});
 };
 
+export const getCurrentUser = () => {
+  // return new Promise((resolve, reject) => {
+  //   const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+  //     unsubscribe();
+  //     resolve(userAuth);
+  //   }, reject);
+  // });
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      localStorage.setItem('user', user.id);
+      console.log(user.uid);
+      return user;
+    } else {
+      return;
+    }
+  });
+};
+
 var provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({
   prompt: 'select_account',
