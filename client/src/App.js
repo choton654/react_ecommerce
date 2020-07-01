@@ -14,7 +14,7 @@ import { selectCollectionOverview } from './redux/shop/shopSelector';
 import { currentUserSelector } from './redux/user/selector';
 import { checkUserSession } from './redux/user/userAction';
 
-const App = ({ checkUserSession, fetchCollections }) => {
+const App = ({ checkUserSession, fetchCollections, currentUser }) => {
   useEffect(() => {
     checkUserSession();
     fetchCollections();
@@ -32,9 +32,7 @@ const App = ({ checkUserSession, fetchCollections }) => {
         <Route
           exact
           path='/signin'
-          render={() =>
-            this.props.currentUser ? <Redirect to='/' /> : <SigninSignup />
-          }
+          render={() => (currentUser ? <Redirect to='/' /> : <SigninSignup />)}
         />
       </Switch>
     </div>
